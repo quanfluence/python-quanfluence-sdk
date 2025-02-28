@@ -102,7 +102,7 @@ response = client.execute_device_qubo_file(ID, FILE_NAME)
 
 
 ## Examples
-- [Examples](https://github.com/quanfluence/python-quanfluence-sdk/blob/main/EXAMPLES.md) - explore our examples docs and learn more about using sdk.
+- [Examples](https://github.com/quanfluence/python-quanfluence-sdk/quanfluence_sdk/examples) - explore our examples docs and learn more about using sdk.
 
 
 ### Feedback
