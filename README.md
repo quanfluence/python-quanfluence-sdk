@@ -1,6 +1,5 @@
 # python-quanfluence-sdk
 Quanfluence Developer Kit for Python
-
 Learn how to solve complex problems with Quanfluence using Python.
 
 ## Table of Contents
