@@ -135,7 +135,7 @@ execution_result = client.execute_device_qubo_file(device_id, file_name)   # Pas
 print("Execution result:", execution_result)
 ```
 
-> The QUBO file should be in serialised coordinate (COO) format and have a '.qubo' extension. Refer the [Example QUBO file](https://github.com/quanfluence/python-quanfluence-sdk/quanfluence_sdk/example_qubo) for the format.
+> The QUBO file should be in serialised coordinate (COO) format and have a '.qubo' extension. Refer the [Example QUBO file](https://github.com/quanfluence/python-quanfluence-sdk/tree/main/example_qubo) for the format.
 
 ## Complete Workflow Example
 
@@ -194,7 +194,7 @@ The current supported BQM on the Ising machine has the following limitations:
 
 
 ## Examples
-- [Examples](https://github.com/quanfluence/python-quanfluence-sdk/quanfluence_sdk/examples) - explore our examples docs and learn more about using sdk.
+- [Examples](https://github.com/quanfluence/python-quanfluence-sdk/tree/main/examples) - explore our examples docs and learn more about using sdk.
 
 
 ### Feedback
