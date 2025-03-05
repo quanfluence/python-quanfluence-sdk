@@ -125,9 +125,14 @@ class QuanfluenceClient:
         """
         url = f"{self.base_url}/api/execute/device/{device_id}"
         headers = self._get_auth_headers()
-        # Send data as plain text
-        qubo = str(qubo)
-        response = requests.post(url, data=qubo, headers=headers)
+        Q_str = str(qubo)
+        # Create an in-memory ZIP file
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as zipf:
+            zipf.writestr("data.txt", Q_str)  # Store as a text file
+        buffer.seek(0)
+        files = {"file": ("data.zip", buffer, "application/zip")}
+        response = requests.post(url, files=files, headers=headers)
         return response.json().get("data")
     
     def execute_device_qubo_file(self, device_id, filename):
