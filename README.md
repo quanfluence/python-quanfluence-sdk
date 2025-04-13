@@ -114,7 +114,7 @@ The QUBO should always be in a python dictionary format with keys indicating spi
 
 ```python
 # Execute QUBO directly on the device
-Q = {(0, 0): 1, (0, 1): -1, (1, 1): 2}
+Q = [[0, 0, 1], [0, 1, -1], [1, 1, 2]]
 result = client.execute_device_qubo_input(device_id, QUBO)
 print("Optimization result:", result)
 ```
@@ -153,7 +153,7 @@ device_id = DEVICE_ID  # Replace with your actual device ID
 
 # Define a QUBO problem
 # This example minimizes: x₀ - x₀x₁ + 2x₁
-Q = {(0, 0): 1, (0, 1): -1, (1, 1): 2}
+Q = [[0, 0, 1], [0, 1, -1], [1, 1, 2]]
 
 # Optimize device parameters for this problem
 device = client.update_device(device_id, {
