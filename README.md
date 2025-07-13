@@ -121,18 +121,60 @@ print("Optimization result:", result)
 
 ### Method 2: Upload and Execute a QUBO File
 
-In case of large problems, a QUBO file can be uploaded to the server and run multiple times without having to send the large problem to the server everytime.The file can be uploaded using the function shown below to obtain the file ID from the server. Use the file ID recieved to execute the file subsequently.
+In case of large problems, a QUBO file can be uploaded to the server and run multiple times without having to send the large problem to the server everytime. The file can be uploaded using the function shown below to obtain the file ID from the server. Use the file ID recieved to execute the file subsequently.
 
 ```python
 # First, upload a QUBO file to the device
-file_name = client.upload_device_qubo(device_id, "path/to/your/qubo_file.qubo")  # Remember the file_name
-print("Uploaded filename", upload_result)
+response = client.upload_device_qubo(device_id, "path/to/your/qubo_file.qubo")  # Remember the file_name
+print("Uploaded filename", response['result'])
 
 # Then execute the uploaded file
 
 execution_result = client.execute_device_qubo_file(device_id, file_name)   # Pass the file_name obtained to execute it
 print("Execution result:", execution_result)
 ```
+
+### Method 3: Jobs - Asynchronous QUBO Execution
+
+For large-scale optimization problems that require significant computational time, Quanfluence provides an asynchronous job execution system. This method allows you to submit QUBO problems as background jobs and monitor their progress without blocking your application.
+
+**When to use this method:**
+- Large QUBO problems that may take several minutes to hours to complete
+- When you need to submit multiple problems simultaneously
+- Applications requiring non-blocking execution
+- Batch processing scenarios
+
+**Workflow:**
+1. **Upload QUBO File**: First, upload your QUBO file to the device (same as Method 2)
+2. **Create Job**: Submit the uploaded file for asynchronous execution
+3. **Monitor Progress**: Poll the job status to track execution progress
+4. **Retrieve Results**: Get the final results once the job completes
+
+```python
+# Step 1: Upload a QUBO file to the device (if not already uploaded)
+response = client.upload_device_qubo(device_id, "path/to/your/large_problem.qubo")
+file_name = response['result']
+print(f"Uploaded file: {file_name}")
+
+# Step 2: Create an asynchronous job
+job_response = client.create_job(device_id, file_name)
+job_id = job_response['id']
+print(f"Created job with ID: {job_id}")
+
+# Step 3: Get job progress & result
+execution_result = client.get_job(job_id)   # Pass the job_id obtained to execute it
+print("Job Status & Execution result:", execution_result)
+```
+
+**Job Status Values (AWS Batch):**
+- `SUBMITTED`: Job has been submitted to the queue
+- `PENDING`: Job is waiting for resources to become available
+- `RUNNABLE`: Job is ready to run but waiting for compute resources
+- `STARTING`: Job is being prepared for execution
+- `RUNNING`: Job is currently being executed on the compute resources
+- `SUCCEEDED`: Job completed successfully with results available
+- `FAILED`: Job encountered an error and failed to complete
+- `CANCELLED`: Job was cancelled before execution
 
 > The QUBO file should be in serialised coordinate (COO) format and have a '.qubo' extension. Refer the [Example QUBO file](https://github.com/quanfluence/python-quanfluence-sdk/tree/main/example_qubo) for the format.
 

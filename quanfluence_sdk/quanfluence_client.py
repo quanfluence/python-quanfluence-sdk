@@ -150,6 +150,35 @@ class QuanfluenceClient:
         response = requests.get(url, headers=headers)
         return response.json().get("data")
 
+    def create_job(self, device_id, filename):
+        """
+        Creates a new async job for executing a QUBO on a specific device.
+
+        :param device_id: The ID of the device to execute the QUBO.
+        :param filename: The filename of the QUBO file.
+        :return: Job Id.
+        """
+        url = f"{self.base_url}/api/jobs"
+        headers = self._get_auth_headers()
+        payload = {
+            "device_id": device_id,
+            "filename": filename
+        }
+        response = requests.post(url, json=payload, headers=headers)
+        return response.json().get("data")
+
+    def get_job(self, job_id):
+        """
+        Retrieves details of a specific job.
+
+        :param job_id: The ID of the job to retrieve.
+        :return: The API response. If the job is "SUCCESS", the response will contain the results.
+        """
+        url = f"{self.base_url}/api/jobs/{job_id}"
+        headers = self._get_auth_headers()
+        response = requests.get(url, headers=headers)
+        return response.json().get("data")
+
     def _get_auth_headers(self):
         """
         Internal method to construct headers with the authorization token.
