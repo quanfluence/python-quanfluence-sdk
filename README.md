@@ -133,6 +133,7 @@ print("Uploaded filename", response['result'])
 execution_result = client.execute_device_qubo_file(device_id, file_name)   # Pass the file_name obtained to execute it
 print("Execution result:", execution_result)
 ```
+> The QUBO file should be in serialised coordinate (COO) format and have a '.qubo' extension. Refer the [Example QUBO file](https://github.com/quanfluence/python-quanfluence-sdk/tree/main/example_qubo) for the format.
 
 ### Method 3: Jobs - Asynchronous QUBO Execution
 
@@ -175,8 +176,6 @@ print("Job Status & Execution result:", execution_result)
 - `SUCCEEDED`: Job completed successfully with results available
 - `FAILED`: Job encountered an error and failed to complete
 - `CANCELLED`: Job was cancelled before execution
-
-> The QUBO file should be in serialised coordinate (COO) format and have a '.qubo' extension. Refer the [Example QUBO file](https://github.com/quanfluence/python-quanfluence-sdk/tree/main/example_qubo) for the format.
 
 ## Complete Workflow Example
 
